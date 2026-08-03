@@ -23,9 +23,16 @@ Schimbarea datelor se face doar cat timp SCL este in starea LOW, iar citirea dat
 # SCL si Clock Divider
 Pentru a genera semnalul SCL am gandit implementarea unui modul de Clock Divider sau Timer care trimite un semnal done_tick catre FSM care va fi folosit pentru temporizarea transferului de date.  
 
-Modulul a fost parametrizat pentru fleximilitate:  
+Modulul a fost parametrizat pentru flexibilitate:  
 
 Final_Val     = CLOCK_FREQ/Tick_FREQ este valoarea pana la care trebuie sa numere counterul pentru a ajunge la frecventa dorita pentru I2C  
 Tick_FREQ     = I2C_FREQ*sample este frecventa tick urilor , iar sample este un parametru ales implicit la 4 care reprezinta numarul de tick uri intr un ciclu de ceas al I2C_CLOCK
 Counter_Width = $clog2(Final_Val) este latimea counterului care se adapteaza in functie de frecventa dorita pentru I2C.
 
+# Timing
+Semnalul de done tick care provine de la Clock Divider trimite 4 impulsuri pe durata unui bit . Aceste 4 impulsuri sunt numarate in interiorul I2C Master printr-un contor intern numit q_tick. Fragmentarea unui bit in 4 intervale este necesara pentru respectarea conditiilor de set up time si hold time. Schimbarea datelor pe SDA se realizeaza atata timp cat SCL este 0. Dupa ce datele au fost schimbate SCL trebuie sa ramana tot pe 0 pentru stabilizarea datelor. SCL este ridicat in 1 pentru a citi datele in al 3-lea q_tick, iar apoi este lasat in 1 pentru cel de-al 4 lea ciclu pentru a respecta conditia de hold time.
+Am folosit un bloc de tip case pentru a reprezenta semnalele scl si sda in fiecare stare a FSM ului.
+# Alte registre folosite in realizarea I2C MASTER:
+Am avut nevoie de un registru care sa numere bitii numit bit_count. Acest registru se decrementeaza pentru parcurgerea bitilor de date.
+Avem un registru intern shiftreg care contine datele pe care vrem sa le transmitem/ care urmeaza a fi receptionate.
+Deoarece este un protocol de comunicare seriala , atunci cand transmitem sau receptionam un bit ne folosim de shiftreg[bit_count], unde bit_count reprezinta pozitia bitului din shift_reg.
