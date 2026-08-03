@@ -36,3 +36,18 @@ Am folosit un bloc de tip case pentru a reprezenta semnalele scl si sda in fieca
 Am avut nevoie de un registru care sa numere bitii numit bit_count. Acest registru se decrementeaza pentru parcurgerea bitilor de date.
 Avem un registru intern shiftreg care contine datele pe care vrem sa le transmitem/ care urmeaza a fi receptionate.
 Deoarece este un protocol de comunicare seriala , atunci cand transmitem sau receptionam un bit ne folosim de shiftreg[bit_count], unde bit_count reprezinta pozitia bitului din shift_reg.
+
+# Realizarea modulelor de afisare a temperaturii:
+Am importat in noul proiect modulele temelor anterioare:   
+  -UART Logger interactiv  
+  -BCD Counter  
+  -MultiDecade   
+  -MUX  
+  -Afisaj 7seg  
+  -Timer.    
+    
+Pentru a afisa temperatura in grade Celsius pe consola am inceput prin modificarea modulului Command  unde am adaugat o noua comanda in meniu: 'T/t '.
+De asemenea au intervenit modificari si la modulul FSM mesaj pentru a putea afisa mesajul: "Temperatura in grade Celsius este:...." , care constau in :  
+ -adaugarea unor noi inputuri: read_temp activat de modulul command la primirea comenzii "T/t" si  temp_val care provine de la I2C Master (data_out) cu valoarea     temperaturii citite pentru a putea fi afisata
+ -adaugarea unei noi stari in FSM care sa fie activata de comanda "T/t"   
+ 
