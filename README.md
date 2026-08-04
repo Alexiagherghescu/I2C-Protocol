@@ -44,10 +44,14 @@ Am importat in noul proiect modulele temelor anterioare:
   -MultiDecade   
   -MUX  
   -Afisaj 7seg  
-  -Timer.    
+  -Timer.  
+  
+  
     
 Pentru a afisa temperatura in grade Celsius pe consola am inceput prin modificarea modulului Command  unde am adaugat o noua comanda in meniu: 'T/t '.
-De asemenea au intervenit modificari si la modulul FSM mesaj pentru a putea afisa mesajul: "Temperatura in grade Celsius este:...." , care constau in :  
- -adaugarea unor noi inputuri: read_temp activat de modulul command la primirea comenzii "T/t" si  temp_val care provine de la I2C Master (data_out) cu valoarea     temperaturii citite pentru a putea fi afisata
+De asemenea au intervenit modificari si la modulul FSM mesaj pentru a putea afisa mesajul: "Temperatura este:....C" , care constau in :  
+ -adaugarea unor noi inputuri: message_temp activat de modulul command la primirea comenzii "T/t" si  temp_val care provine de la binary_to_ascii cu valoarea     temperaturii convertite in ascii pentru a putea fi afisata pe consola
  -adaugarea unei noi stari in FSM care sa fie activata de comanda "T/t"   
+
+ Pentru modulul Binary to ASCII din interiorul modulului UART logger interactiv am adaugat o intrare temp_converted provenita de la modulul Multidecade care are rolul de a desparti pe unitati valoarea in binar provenita de la CTRL_Senzor si o iesire temp_val care ne va folosi la afisarea pe consola.
  
