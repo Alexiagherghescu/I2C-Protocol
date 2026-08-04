@@ -37,21 +37,21 @@ Am avut nevoie de un registru care sa numere bitii numit bit_count. Acest regist
 Avem un registru intern shiftreg care contine datele pe care vrem sa le transmitem/ care urmeaza a fi receptionate.
 Deoarece este un protocol de comunicare seriala , atunci cand transmitem sau receptionam un bit ne folosim de shiftreg[bit_count], unde bit_count reprezinta pozitia bitului din shift_reg.
 
-# Realizarea modulelor de afisare a temperaturii:
+# Modificarea modulelor anterioare:
 Am importat in noul proiect modulele temelor anterioare:   
-  -UART Logger interactiv  
-  -BCD Counter  
-  -MultiDecade   
+  -UART Logger interactiv 
   -MUX  
   -Afisaj 7seg  
   -Timer.  
-  
-  
+
     
 Pentru a afisa temperatura in grade Celsius pe consola am inceput prin modificarea modulului Command  unde am adaugat o noua comanda in meniu: 'T/t '.
 De asemenea au intervenit modificari si la modulul FSM mesaj pentru a putea afisa mesajul: "Temperatura este:....C" , care constau in :  
  -adaugarea unor noi inputuri: message_temp activat de modulul command la primirea comenzii "T/t" si  temp_val care provine de la binary_to_ascii cu valoarea     temperaturii convertite in ascii pentru a putea fi afisata pe consola
  -adaugarea unei noi stari in FSM care sa fie activata de comanda "T/t"   
 
- Pentru modulul Binary to ASCII din interiorul modulului UART logger interactiv am adaugat o intrare temp_converted provenita de la modulul Multidecade care are rolul de a desparti pe unitati valoarea in binar provenita de la CTRL_Senzor si o iesire temp_val care ne va folosi la afisarea pe consola.
+ Pentru modulul Binary to ASCII din interiorul modulului UART logger interactiv am adaugat o intrare temp_converted provenita de la un modul BCD  care are rolul de a desparti pe unitati valoarea in binar provenita de la CTRL_Senzor si o iesire temp_val care ne va folosi la afisarea pe consola.
+
+Modulului UART logger interactiv i-am adaugat un alt input temp_converted care provine din modulul BCD si am realizat conectarea interna a semnalelor noi enunate mai sus.
+ 
  
