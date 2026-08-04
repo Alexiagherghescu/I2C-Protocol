@@ -53,5 +53,6 @@ De asemenea au intervenit modificari si la modulul FSM mesaj pentru a putea afis
  Pentru modulul Binary to ASCII din interiorul modulului UART logger interactiv am adaugat o intrare temp_converted provenita de la un modul BCD  care are rolul de a desparti pe unitati valoarea in binar provenita de la CTRL_Senzor si o iesire temp_val care ne va folosi la afisarea pe consola.
 
 Modulului UART logger interactiv i-am adaugat un alt input temp_converted care provine din modulul BCD si am realizat conectarea interna a semnalelor noi enunate mai sus.
+Initial modulul ASCII nu functiona corect intrucat el primea o valoare in binar pe care o transforma in hexa iar mai apoi in ascii. Daca imparteam valoarea in binar primita de la ctrl senzor in 3 seturi a cate 4 biti si treceam aceasta valoare prin modulul nostru de conversie, pe ecran ar fi aparut litere pentru valori in binar mai mari decat 9. Astfel, introducand un nou modul BCD care primeste valoarea in binar de la CTRL_senzor , acesta scoate valoarea in binar pentru fiecare cifra a numarului primit : zeci, unitati si zecimala. Prin concatenarea in modulul top a acestor semnale si conectarea la temp_converted , valoarea corecta este trimisa catre modulul ASCII .
  
  
