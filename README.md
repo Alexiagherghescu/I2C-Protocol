@@ -53,6 +53,13 @@ De asemenea au intervenit modificari si la modulul FSM mesaj pentru a putea afis
  Pentru modulul Binary to ASCII din interiorul modulului UART logger interactiv am adaugat o intrare temp_converted provenita de la un modul BCD  care are rolul de a desparti pe unitati valoarea in binar provenita de la CTRL_Senzor si o iesire temp_val care ne va folosi la afisarea pe consola.
 
 Modulului UART logger interactiv i-am adaugat un alt input temp_converted care provine din modulul BCD si am realizat conectarea interna a semnalelor noi enunate mai sus.
+
+# Module noi  
 Initial modulul ASCII nu functiona corect intrucat el primea o valoare in binar pe care o transforma in hexa iar mai apoi in ascii. Daca imparteam valoarea in binar primita de la ctrl senzor in 3 seturi a cate 4 biti si treceam aceasta valoare prin modulul nostru de conversie, pe ecran ar fi aparut litere pentru valori in binar mai mari decat 9. Astfel, introducand un nou modul BCD care primeste valoarea in binar de la CTRL_senzor , acesta scoate valoarea in binar pentru fiecare cifra a numarului primit : zeci, unitati si zecimala. Prin concatenarea in modulul top a acestor semnale si conectarea la temp_converted , valoarea corecta este trimisa catre modulul ASCII .
- 
+
+
+## Timer pentru citirea periodica a temperaturii
+Este necesar un modul care sa genereze un semnal de enable pentru I2C master . Deoarece vrem sa citim periodic temperatura provenita de la senzor acest modul va fi parametrizat pentru flexibilitate pentru a citi la diferite intervale de timp, usor de modificat in functie de cerinta.
+Intern, acest modul este un counter care numara pana la o valoare care se actualizeaza automat in functie de intervalul de timp la care vrem sa se faca citirea si trimite un semnal de done care actioneaza ca semnal de enable pentru I2C Master.
+
  
