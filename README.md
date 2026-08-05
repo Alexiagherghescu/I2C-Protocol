@@ -66,6 +66,18 @@ Este necesar un modul care sa genereze un semnal de enable pentru I2C master . D
 Intern, acest modul este un counter care numara pana la o valoare care se actualizeaza automat in functie de intervalul de timp la care vrem sa se faca citirea si trimite un semnal de done care actioneaza ca semnal de enable pentru I2C Master.
 
 ## CTRL_Senzor
-Acest modul preia temperatura in formatul de 16 biti din registrele interioare 0x00-0x01 ale senzorului ADT pde pe iesirea data_out a modulului I2C_Master si prelucreaza datele astfel incat sa preia doar informatia referitoare la temperaturaa in grade Celsius.
+Acest modul preia temperatura in formatul de 16 biti din registrele interioare 0x00-0x01 ale senzorului ADT pde pe iesirea data_out a modulului I2C_Master si prelucreaza datele astfel incat sa preia doar informatia referitoare la temperaturaa in grade Celsius.   
+
+
+Conform DataSheetului placii NexysA7:   
+When the ADT7420 is powered up, it is in a mode that can be used as a simple temperature sensor without any
+initial configuration. By default, the device address register points to the temperature MSB register, so a two byte
+read without specifying a register will read the value of the temperature register from the device. The first byte
+read back will be the most significant byte (MSB) of the temperature data, and the second will be the least
+significant byte (LSB) of the data. These two bytes form a two’s complement 16-bit integer. If the result is shifted
+to the right three bits and multiplied by 0.0625, the resulting signed floating point value will be a temperature
+reading in degrees Celsius.  
+
+Luand in considerare ultimele specificatii , modulul CTRL_Senzor va trebui sa shifteze la dreapta 3 biti si sa inmulteasca rezultatul cu 0.0625 pentru a reprezenta temperatura in grade Celsius.
 
  
