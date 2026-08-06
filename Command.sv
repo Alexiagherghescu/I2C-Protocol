@@ -12,6 +12,8 @@ always @(posedge clock)
 begin
     if(reset==1)
         begin
+            read_en<=0;
+            data_valid<=0;
             signal_inc<=0; 
             signal_dec<=0; 
             signal_reset<=0;                                               
