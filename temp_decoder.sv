@@ -18,15 +18,15 @@ begin
         begin
         
         sign<=data_out[15];
-        temp<=data_out[15:3];
+        temp<=data_out[15:4];
         
         if(data_out[15]==0)
             begin
-                ctrl_senzor_temp<=data_out[15:3]>>4;   
+                ctrl_senzor_temp<=(data_out[15:4]*10)>>4;   
             end
         else 
             begin
-                ctrl_senzor_temp<=(data_out[15:3]-13'h1000)>>4; 
+                ctrl_senzor_temp<=((~data_out[15:4]+1'b1)*10)>>4; 
             end
          
         end

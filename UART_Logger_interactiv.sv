@@ -10,7 +10,7 @@ wire [7:0]  rx_dout, rx_fifo_dout,tx_fifo_dout, data;
 wire s_tick, rx_done, rd_en, full_tx, rd_en_tx;
 wire rst_cnt, up_cnt, down_cnt;
 wire inc, dec, rst;
-wire  message_inc, message_dec, message_reset, message_help,message_error, message_status;
+wire message_temp,  message_inc, message_dec, message_reset, message_help,message_error, message_status;
 wire data_valid;
 wire w1, w2, w3;
 wire [15:0] led;
@@ -107,7 +107,7 @@ counter16b counter16b
    .out(led )            
 );  
    
-binary_to_ascii
+binary_to_ascii binary_to_ascii
 (
     .counter_val(led),
     .clock(clock), 
@@ -117,7 +117,7 @@ binary_to_ascii
     .temp_converted(temp_converted)
 );            
 
-FSM_mesja
+FSM_mesja FSM_mesja
 (
   .full(full_tx), 
   .message_inc(w1), 
@@ -126,6 +126,7 @@ FSM_mesja
   .message_help(message_help),
   .message_error(message_error),
   .message_status(message_status), 
+  .message_temp(message_temp),
   .clock(clock), 
   .reset(reset),
   .ascii_val(ascii_val),  

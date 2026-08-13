@@ -1,11 +1,11 @@
- module timer
+ module timer #(parameter limit=17'd99999)
 (
     input logic clock,
     output logic [1:0] sel=2'b0
 );
 
 logic [16:0] registru= 17'b0;
-localparam limit=17'd99999;
+
 
 
 always_ff @(posedge clock)

@@ -25,6 +25,7 @@ begin
          else
             begin
                 counter<=counter+1;
+                done<=1'b0;
             end
         end
 

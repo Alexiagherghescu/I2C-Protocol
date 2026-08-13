@@ -4,8 +4,10 @@ module top
     inout logic sda,
     output logic scl, tx, led_sign,
     output logic [7:0] segmente,
-    output logic [4:0] digits
+    output logic [4:0] digits,
+    output logic [11:0] ctrl_senzor_temp
 );
+
 
 localparam addr_slave= 'h4B;
 localparam addr_reg= 'h00;
@@ -13,7 +15,6 @@ localparam Celsius='d10;
 
 wire en_i2c, done_tick;
 wire [15:0] data_out;
-wire [11:0] ctrl_senzor_temp;
 wire [1:0] sel_mux;
 wire [3:0] out_mux;
 
@@ -61,7 +62,7 @@ reading_timer
 
 
 
-clock_divider #(.CLOCK_FREQ(1000000),
+clock_divider #(.CLOCK_FREQ(100000000),
                 .I2C_FREQ (100000),
                 .sample(4))
 clock_divider
@@ -86,7 +87,8 @@ bcd_temp(
     .zecimala(w_zecimala)
 );
 
-timer timer_mux
+timer #(.limit(17'd99999)) 
+timer_mux
 (
     .clock(clock),
     .sel(sel_mux)

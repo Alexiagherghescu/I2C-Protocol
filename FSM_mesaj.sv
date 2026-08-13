@@ -45,7 +45,7 @@ begin
                     if(message_temp==1) 
                     begin
                              state<=MESAJ ;
-                             shiftreg<={"TEMPERATURA ESTE: ", temp_val[23:8],".",temp_val[7:0],"C", 8'h0D,8'h0A,429'd0};
+                             shiftreg<={"TEMPERATURA ESTE: ", temp_val[23:16],temp_val[15:8],".",temp_val[7:0],"C", 8'h0D,8'h0A,400'd0};
                               counter_litera<=25;
                     end
                     else begin
