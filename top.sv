@@ -18,6 +18,9 @@ wire [15:0] data_out;
 wire [1:0] sel_mux;
 wire [3:0] out_mux;
 
+wire point;
+assign point= (sel_mux=='d1) ? 1'b1: 1'b0;
+
 wire [3:0] w_zeci, w_unit, w_zecimala;
 wire [11:0] temp_converted;
 assign temp_converted= {w_zeci, w_unit, w_zecimala};
@@ -52,7 +55,7 @@ i2c_master i2c_master
 
 
 reading_timer #(.clock_freq(100000000),
-                .reading_time_per_sec(2))
+                .reading_time_per_sec(10))
 reading_timer
 (
     .clock(clock), 
@@ -64,7 +67,7 @@ reading_timer
 
 clock_divider #(.CLOCK_FREQ(100000000),
                 .I2C_FREQ (100000),
-                .sample(4))
+                .sample(10))
 clock_divider
 (
     .clock(clock), 
@@ -107,6 +110,7 @@ mux mux
 seg7 seg7
 (
     .in(out_mux),
+    .point(point),
     .segmente(segmente)
 );
 

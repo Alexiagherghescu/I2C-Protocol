@@ -1,6 +1,7 @@
 module seg7
 (
     input logic [3:0] in,
+    input logic point,
     output logic [7:0] segmente
 );
 
@@ -20,6 +21,11 @@ case(in)
     4'd10:segmente=8 'b11000110;
  default: segmente=8 'b11111111;
 endcase
+
+    if(point==1)
+        begin
+            segmente[7]=1'b0;
+        end
 end
 
 endmodule
